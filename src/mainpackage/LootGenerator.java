@@ -7,19 +7,19 @@ import java.util.Random;
 
 public class LootGenerator {
 	
-	Parser parser = new Parser();
-	Random rand = new Random();
+	public Parser parser;
 	ArrayList<Monster> monsterList;
 	
 	public LootGenerator() {
-		
+		parser = new Parser();
 	}
 	
 	public String pickMonster(File file) throws FileNotFoundException {
 		monsterList = parser.listMonsters(file);
+		Random rand = new Random();
 		int index = rand.nextInt(monsterList.size());
 		Monster randomMonster = monsterList.get(index);
-		return randomMonster.monsterClass;
+		return randomMonster.getMonsterClass();
 		
 	}
 }

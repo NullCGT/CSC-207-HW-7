@@ -16,23 +16,12 @@ public class Parser {
 		Scanner scan = new Scanner(file);
 		//http://stackoverflow.com/questions/6244670/java-using-multiple-delimiters-in-a-scanner
 		scan.useDelimiter("\t|\r");
-		int index = 0;
 		while (scan.hasNext()) {
-			index++;
-			if (index == 1) {
-				monster = scan.next();
-			}
-			else if (index == 2) {
-				type = scan.next();
-			}
-			else if (index == 3) {
-				level = scan.next();
-			}
-			else if (index == 4) {
-				treasure = scan.next();
-				index = 0;
-				monsters.add(new Monster(monster, type, level, treasure));
-			}
+			monster = scan.next();
+			type = scan.next();
+			level = scan.next();
+			treasure = scan.next();
+			monsters.add(new Monster(monster, type, level, treasure));
 		}
 		scan.close();
 		return monsters;
