@@ -10,15 +10,15 @@ public class ApplicationMain {
 		//NOTE: Both of these will currently return errors, since monstats.txt is not in the build
 		//path. If it is added, then these will run.
 		
-		/*
+		
 		LootGenerator loot = new LootGenerator();
-		File monstats = new File("monstats.txt");
+		File monstats = new File("src/mainpackage/data/large/monstats.txt");
 		System.out.println(loot.pickMonster(monstats));
 
 		
 	
 		Parser parser = new Parser();
-		File file = new File("monstats.txt");
+		File file = new File("src/mainpackage/data/large/monstats.txt");
 		ArrayList<Monster> monsters = parser.listMonsters(file);
 		
 		for (Monster mon : monsters) {
@@ -28,6 +28,6 @@ public class ApplicationMain {
 			System.out.println("level " + mon.getLevel());
 			System.out.println("treasure " + mon.getTreasure());
 		}
-		*/
+		
 	}
 }
