@@ -12,11 +12,19 @@ public class ApplicationMain {
 		
 		
 		LootGenerator loot = new LootGenerator();
-		File monstats = new File("src/mainpackage/data/large/monstats.txt");
-		System.out.println(loot.pickMonster(monstats));
+		File monstats = new File("src/mainpackage/data/small/monstats.txt");
+		File treasure = new File("src/mainpackage/data/small/TreasureClassEx.txt");
+		File armor = new File("src/mainpackage/data/small/armor.txt");
+		Monster randMonster = loot.pickMonster(monstats);
+		System.out.println(randMonster.getMonsterClass());
+		String baseItem = loot.generateBaseItem(randMonster, treasure);
+		System.out.println(baseItem);
+		
+		System.out.println(loot.generateBaseStats(baseItem, armor));
+		
 
 		
-	
+	/*
 		Parser parser = new Parser();
 		File file = new File("src/mainpackage/data/large/monstats.txt");
 		ArrayList<Monster> monsters = parser.listMonsters(file);
@@ -28,6 +36,6 @@ public class ApplicationMain {
 			System.out.println("level " + mon.getLevel());
 			System.out.println("treasure " + mon.getTreasure());
 		}
-		
+		*/
 	}
 }
