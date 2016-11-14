@@ -46,7 +46,7 @@ public class Parser {
 		scan.close();
 		return treasures;
 	}
-	
+
 	public ArrayList<BaseItem> listBaseItems(File file) throws FileNotFoundException {
 		ArrayList<BaseItem> baseItems = new ArrayList<BaseItem>();
 		String baseItem = null;
@@ -64,5 +64,46 @@ public class Parser {
 		scan.close();
 		return baseItems;
 	}
+
+	public ArrayList<Prefix> listPrefix(File file) throws FileNotFoundException  {
+		ArrayList<Prefix> prefixes = new ArrayList<Prefix>();
+		String name;
+		String mod1code;
+		String mod1min;
+		String mod1max;
+		Scanner scan = new Scanner(file);
+		scan.useDelimiter("\t|\r");
+		while (scan.hasNext()) {
+			name = scan.next();
+			mod1code = scan.next();
+			mod1min = scan.next();
+			mod1max = scan.next();
+			prefixes.add(new Prefix(name, mod1code, mod1min, mod1max));
+		}
+		scan.close();
+		return prefixes;
+	}
 	
+	public ArrayList<Suffix> listSuffix(File file) throws FileNotFoundException  {
+		ArrayList<Suffix> suffixes = new ArrayList<Suffix>();
+		String name;
+		String mod1code;
+		String mod1min;
+		String mod1max;
+		Scanner scan = new Scanner(file);
+		scan.useDelimiter("\t|\r");
+		while (scan.hasNext()) {
+			name = scan.next();
+			mod1code = scan.next();
+			mod1min = scan.next();
+			mod1max = scan.next();
+			suffixes.add(new Suffix(name, mod1code, mod1min, mod1max));
+		}
+		scan.close();
+		return suffixes;
+	}
+
+
 }
+
+

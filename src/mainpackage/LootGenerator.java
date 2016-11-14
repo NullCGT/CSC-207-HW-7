@@ -11,8 +11,9 @@ public class LootGenerator {
 	public Parser parser;
 	ArrayList<Monster> monsterList;
 	ArrayList<BaseItem> baseItemList;
+	ArrayList<Prefix> prefixList;
+	ArrayList<Suffix> suffixList;
 	Random rand = new Random();
-	//ArrayList<Treasure> treasureList;
 	Map<String, ArrayList<String>> treasureMap;
 
 	public LootGenerator() {
@@ -52,6 +53,7 @@ public class LootGenerator {
 
 
 	}
+
 	//http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range
 	public String generateBaseStats(String baseItem, File file) throws FileNotFoundException  {
 		baseItemList = parser.listBaseItems(file);
@@ -60,10 +62,30 @@ public class LootGenerator {
 				int minac = Integer.parseInt(item.getMinac());
 				int maxac = Integer.parseInt(item.getMaxac());
 				int randomNum = rand.nextInt(maxac - minac + 1) + minac;
-				System.out.println("Defense: <" + randomNum + ">");
+				return "" + randomNum;
 			}
 		}
 		return "";
 	}
+
+	public Affix generateAffix(File prefixFile, File suffixFile) throws FileNotFoundException {
+		Prefix prefix = null;
+		Suffix suffix = null;
+		int prefixChance = rand.nextInt(2);
+		int suffixChance = rand.nextInt(2);
+		if(prefixChance == 1) {
+			prefixList = parser.listPrefix(prefixFile);
+			int prefixIndex = rand.nextInt(prefixList.size() - 1);
+			prefix = prefixList.get(prefixIndex);
+		}
+		if(suffixChance == 1) {
+			suffixList = parser.listSuffix(suffixFile);
+			int suffixIndex = rand.nextInt(suffixList.size() - 1);
+			suffix = suffixList.get(suffixIndex);
+		}
+		return new Affix(prefix, suffix);
+	}
+	
+	
 
 }
