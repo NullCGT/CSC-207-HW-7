@@ -2,84 +2,67 @@ package mainpackage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ApplicationMain {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		//NOTE: Both of these will currently return errors, since monstats.txt is not in the build
-		//path. If it is added, then these will run.
-
-/*
-		LootGenerator loot = new LootGenerator();
-		File monstats = new File("src/mainpackage/data/small/monstats.txt");
-		File treasure = new File("src/mainpackage/data/small/TreasureClassEx.txt");
-		File armor = new File("src/mainpackage/data/small/armor.txt");
-		File prefixFile = new File("src/mainpackage/data/small/MagicPrefix.txt");
-		File suffixFile = new File("src/mainpackage/data/small/MagicSuffix.txt");
-		Monster randMonster = loot.pickMonster(monstats);
-		System.out.println(randMonster.getMonsterClass());
-		String baseItem = loot.generateBaseItem(randMonster, treasure);
-		System.out.println(baseItem);
-
-		System.out.println("Defense: " + loot.generateBaseStats(baseItem, armor));
-
-		Affix affix = loot.generateAffix(prefixFile, suffixFile);
-		if (affix.getPrefix() != null) {
-			System.out.print("" + affix.getPrefix().getName());
-		}
-		
-		System.out.print(" " + baseItem + " ");
-		
-		if (affix.getSuffix() != null) {
-			System.out.print("" + affix.getSuffix().getName());
-		}
-		if (affix.getPrefix() != null) {
-			System.out.println(affix.getPrefix().generateStats());
-		}
-		if (affix.getSuffix() != null) {
-			System.out.println(affix.getSuffix().generateStats());
-		}
-*/
-
+		String answer = null;
 		LootGenerator loot = new LootGenerator();
 		Parser parser = new Parser();
-		
-		File monstats = new File("src/mainpackage/data/small/monstats.txt");
-		File treasure = new File("src/mainpackage/data/small/TreasureClassEx.txt");
-		File armor = new File("src/mainpackage/data/small/armor.txt");
-		File prefixFile = new File("src/mainpackage/data/small/MagicPrefix.txt");
-		File suffixFile = new File("src/mainpackage/data/small/MagicSuffix.txt");
-		
-		parser.listBaseItems(armor);
-		parser.listMonsters(monstats);
-		parser.listPrefix(prefixFile);
-		parser.listSuffix(suffixFile);
-		parser.listTreasure(treasure);
-		
-		System.out.println("Welcome to JDiablo!\n");
-		System.out.println("Fighting <Monster Name>...");
-		System.out.println("You have slain <Monster Name>!");
-		System.out.println("<Monster Name> dropped...\n");
-		System.out.println("<complete item name>");
-		System.out.println("<base item statistic>");
-		System.out.println("<additional affix statistics>");
-		System.out.println("");
-		System.out.println("Fight again [y/n]?");
-		
 
-		/*
-		Parser parser = new Parser();
-		File file = new File("src/mainpackage/data/large/monstats.txt");
-		ArrayList<Monster> monsters = parser.listMonsters(file);
+		File monstats = new File("src/mainpackage/data/large/monstats.txt");
+		File treasure = new File("src/mainpackage/data/large/TreasureClassEx.txt");
+		File armor = new File("src/mainpackage/data/large/armor.txt");
+		File prefixFile = new File("src/mainpackage/data/large/MagicPrefix.txt");
+		File suffixFile = new File("src/mainpackage/data/large/MagicSuffix.txt");
 
-		for (Monster mon : monsters) {
+		ArrayList<BaseItem> itemList = parser.listBaseItems(armor);
+		ArrayList<Monster> monsterList = parser.listMonsters(monstats);
+		ArrayList<Prefix> prefixList = parser.listPrefix(prefixFile);
+		ArrayList<Suffix> suffixList = parser.listSuffix(suffixFile);
+		Map<String, ArrayList<String>> treasureMap = parser.listTreasure(treasure);
+
+		Scanner input = new Scanner(System.in);
+
+		do {
+			Monster randMonster = loot.pickMonster(monsterList);
+			System.out.println("Fighting " + randMonster.getMonsterClass() + "...");
+			System.out.println("You have slain " + randMonster.getMonsterClass() + "!");
+			System.out.println(randMonster.getMonsterClass() + " dropped:");
+
+			String baseItem = loot.generateBaseItem(randMonster, treasureMap);
+			Affix affix = loot.generateAffix(prefixList, suffixList);
+			if (affix.getPrefix() != null) {
+				System.out.print("" + affix.getPrefix().getName());
+			}
+			System.out.print(" " + baseItem + " ");
+			if (affix.getSuffix() != null) {
+				System.out.print("" + affix.getSuffix().getName());
+			}
 			System.out.println();
-			System.out.println("monster " + mon.getMonsterClass());
-			System.out.println("type " + mon.getType());
-			System.out.println("level " + mon.getLevel());
-			System.out.println("treasure " + mon.getTreasure());
-		}
-		 */
+
+
+			System.out.println(" Defense: " + loot.generateBaseStats(baseItem, itemList));
+
+
+			if (affix.getPrefix() != null) {
+				System.out.println(" " + affix.getPrefix().generateStats() + " " + affix.getPrefix().getMod1code());
+			}
+			if (affix.getSuffix() != null) {
+				System.out.println(" " + affix.getSuffix().generateStats() + " " + affix.getSuffix().getMod1code());
+			}
+			System.out.println("");
+			
+			do {
+				System.out.println("Do you want to play again [y/n]?");
+				answer = input.next().toLowerCase();
+			} while (!answer.equals("n") && !answer.equals("y"));
+			
+		} while (answer.equals("y"));
+		input.close();
+		return;
 	}
 }
