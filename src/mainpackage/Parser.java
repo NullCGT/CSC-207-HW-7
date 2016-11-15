@@ -9,6 +9,19 @@ import java.util.Scanner;
 
 public class Parser {
 
+	/**
+	 * A constructor for the parser class.
+	 */
+	public Parser () {
+		
+	}
+	
+	/**
+	 * Creates a list of monsters parsed from the provided file.
+	 * @param file A file full of monsters and their drop information.
+	 * @return monsters, an ArrayList of monster classes parsed from the given file.
+	 * @throws FileNotFoundException Throw this if an invalid file is provided.
+	 */
 	public ArrayList<Monster> listMonsters(File file) throws FileNotFoundException {
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 		String monster = null;
@@ -16,7 +29,6 @@ public class Parser {
 		String level = null;
 		String treasure = null;
 		Scanner scan = new Scanner(file);
-		//http://stackoverflow.com/questions/6244670/java-using-multiple-delimiters-in-a-scanner
 		scan.useDelimiter("\t|\r");
 		while (scan.hasNext()) {
 			monster = scan.next();
@@ -29,11 +41,19 @@ public class Parser {
 		return monsters;
 	}
 
+	/**
+	 * A method which creates a Map consisting of treasure classes and their associated items and
+	 * treasure classes.
+	 * @param file A file full of treasure classes and their associated items and treasure classes.
+	 * @return treasures, a map consisting of treasures (keys) and their associated items and
+	 * 		   treasure classes (values). Keys are in String form, and values in ArrayList
+	 * 		   \<String\> form.
+	 * @throws FileNotFoundException Throw this if an invalid file is provided.
+	 */
 	public Map<String, ArrayList<String>> listTreasure(File file) throws FileNotFoundException {
 		Map<String, ArrayList<String>> treasures = new HashMap<String, ArrayList<String>>();
 		String treasure = null;
 		Scanner scan = new Scanner(file);
-		//http://stackoverflow.com/questions/6244670/java-using-multiple-delimiters-in-a-scanner
 		scan.useDelimiter("\t|\r");
 		while (scan.hasNext()) {
 			treasure = scan.next();
@@ -47,13 +67,18 @@ public class Parser {
 		return treasures;
 	}
 
+	/**
+	 * Parses a file into a list of BaseItems.
+	 * @param file A file full for items and their minimum and maximum acs.
+	 * @return baseItems, an ArrayList of BaseItems.
+	 * @throws FileNotFoundException Throw this if an invalid file is provided.
+	 */
 	public ArrayList<BaseItem> listBaseItems(File file) throws FileNotFoundException {
 		ArrayList<BaseItem> baseItems = new ArrayList<BaseItem>();
 		String baseItem = null;
 		String minac = null;
 		String maxac = null;
 		Scanner scan = new Scanner(file);
-		//http://stackoverflow.com/questions/6244670/java-using-multiple-delimiters-in-a-scanner
 		scan.useDelimiter("\t|\r");
 		while (scan.hasNext()) {
 			baseItem = scan.next();
@@ -65,6 +90,12 @@ public class Parser {
 		return baseItems;
 	}
 
+	/**
+	 * Parses a file into a list of Prefixes.
+	 * @param file full of prefixes and information about their modifiers.
+	 * @return prefixes, an ArrayList of Prefixes.
+	 * @throws FileNotFoundException Throw this if an invalid file is provided.
+	 */
 	public ArrayList<Prefix> listPrefix(File file) throws FileNotFoundException  {
 		ArrayList<Prefix> prefixes = new ArrayList<Prefix>();
 		String name;
@@ -84,6 +115,12 @@ public class Parser {
 		return prefixes;
 	}
 
+	/** 
+	 * Parses a file into a list of Suffixes.
+	 * @param file a file full of suffixes and information about their modifiers.
+	 * @return suffixes, an ArrayList of Suffixes.
+	 * @throws FileNotFoundException Throw this if an invalid file is provided.
+	 */
 	public ArrayList<Suffix> listSuffix(File file) throws FileNotFoundException  {
 		ArrayList<Suffix> suffixes = new ArrayList<Suffix>();
 		String name;
