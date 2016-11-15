@@ -10,7 +10,7 @@ public class Treasure {
 	public Treasure(String treasureClass, ArrayList<String> items) {
 		this.treasureClass = treasureClass;
 	}
-	
+
 	public String getTreasureClass() {
 		return treasureClass;
 	}
@@ -18,5 +18,5 @@ public class Treasure {
 	public ArrayList<String> getItems() {
 		return items;
 	}
-	
+
 }

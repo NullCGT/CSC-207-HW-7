@@ -83,7 +83,7 @@ public class Parser {
 		scan.close();
 		return prefixes;
 	}
-	
+
 	public ArrayList<Suffix> listSuffix(File file) throws FileNotFoundException  {
 		ArrayList<Suffix> suffixes = new ArrayList<Suffix>();
 		String name;

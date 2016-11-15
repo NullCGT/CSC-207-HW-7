@@ -12,6 +12,7 @@ public class ApplicationMain {
 		String answer = null;
 		LootGenerator loot = new LootGenerator();
 		Parser parser = new Parser();
+		Scanner input = new Scanner(System.in);
 
 		File monstats = new File("src/mainpackage/data/large/monstats.txt");
 		File treasure = new File("src/mainpackage/data/large/TreasureClassEx.txt");
@@ -25,16 +26,17 @@ public class ApplicationMain {
 		ArrayList<Suffix> suffixList = parser.listSuffix(suffixFile);
 		Map<String, ArrayList<String>> treasureMap = parser.listTreasure(treasure);
 
-		Scanner input = new Scanner(System.in);
-
 		do {
 			Monster randMonster = loot.pickMonster(monsterList);
+			String baseItem = loot.generateBaseItem(randMonster, treasureMap);
+			Affix affix = loot.generateAffix(prefixList, suffixList);
+			
 			System.out.println("Fighting " + randMonster.getMonsterClass() + "...");
 			System.out.println("You have slain " + randMonster.getMonsterClass() + "!");
 			System.out.println(randMonster.getMonsterClass() + " dropped:");
 
-			String baseItem = loot.generateBaseItem(randMonster, treasureMap);
-			Affix affix = loot.generateAffix(prefixList, suffixList);
+			
+			
 			if (affix.getPrefix() != null) {
 				System.out.print("" + affix.getPrefix().getName());
 			}
@@ -43,24 +45,24 @@ public class ApplicationMain {
 				System.out.print("" + affix.getSuffix().getName());
 			}
 			System.out.println();
-
-
+			
 			System.out.println(" Defense: " + loot.generateBaseStats(baseItem, itemList));
 
-
 			if (affix.getPrefix() != null) {
-				System.out.println(" " + affix.getPrefix().generateStats() + " " + affix.getPrefix().getMod1code());
+				System.out.println(" " + affix.getPrefix().generateStats() + " " + 
+						affix.getPrefix().getMod1code());
 			}
 			if (affix.getSuffix() != null) {
-				System.out.println(" " + affix.getSuffix().generateStats() + " " + affix.getSuffix().getMod1code());
+				System.out.println(" " + affix.getSuffix().generateStats() + " " + 
+						affix.getSuffix().getMod1code());
 			}
 			System.out.println("");
-			
+
 			do {
 				System.out.println("Do you want to play again [y/n]?");
 				answer = input.next().toLowerCase();
 			} while (!answer.equals("n") && !answer.equals("y"));
-			
+
 		} while (answer.equals("y"));
 		input.close();
 		return;

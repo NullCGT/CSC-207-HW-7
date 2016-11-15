@@ -12,7 +12,7 @@ public class Monster {
 		this.type = type;
 		this.treasure = treasure;
 	}
-	
+
 	public String getMonsterClass() {
 		return monsterClass;
 	}
@@ -25,10 +25,10 @@ public class Monster {
 		return type;
 	}
 
-	
+
 	public String getTreasure() {
 		return treasure;
 	}
 
-	
+
 }

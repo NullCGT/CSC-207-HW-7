@@ -62,6 +62,7 @@ public class LootGenerator {
 		Suffix suffix = null;
 		int prefixChance = rand.nextInt(2);
 		int suffixChance = rand.nextInt(2);
+		
 		if(prefixChance == 1) {
 			int prefixIndex = rand.nextInt(prefixList.size() - 1);
 			prefix = prefixList.get(prefixIndex);
@@ -70,6 +71,7 @@ public class LootGenerator {
 			int suffixIndex = rand.nextInt(suffixList.size() - 1);
 			suffix = suffixList.get(suffixIndex);
 		}
+		
 		return new Affix(prefix, suffix);
 	}
 
